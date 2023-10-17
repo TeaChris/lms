@@ -14,10 +14,10 @@ import { IconBadge } from '@/components/IconBadge'
 import TitleForm from './_components/TitleForm'
 import DescriptionForm from './_components/DescriptionForm'
 import ImageForm from './_components/ImageForm'
-// import { CategoryForm } from './_components/category-form'
-// import { PriceForm } from './_components/price-form'
-// import { AttachmentForm } from './_components/attachment-form'
-// import { ChaptersForm } from './_components/chapters-form'
+import CategoryForm from './_components/CategoryForm'
+import PriceForm from './_components/PriceForm'
+import AttachmentForm from './_components/AttachmentForm'
+import { ChaptersForm } from './_components/ChaptersForm'
 // import { Actions } from './_components/actions'
 
 export default async function CourseIdPage({
@@ -66,7 +66,7 @@ export default async function CourseIdPage({
     course.imageUrl,
     course.price,
     course.categoryId,
-    // course.chapters.some((chapter) => chapter.isPublished),
+    course.chapters.some((chapter) => chapter.isPublished),
   ]
 
   const totalFields = requiredFields.length
@@ -101,17 +101,17 @@ export default async function CourseIdPage({
           <TitleForm initialData={course} courseId={course.id} />
           <DescriptionForm initialData={course} courseId={course.id} />
           <ImageForm initialData={course} courseId={course.id} />
-          {/* <CategoryForm
+          <CategoryForm
             initialData={course}
             courseId={course.id}
             options={categories.map((category) => ({
               label: category.name,
               value: category.id,
             }))}
-          /> */}
+          />
         </div>
         <div className="space-y-6">
-          {/* <div>
+          <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={ListChecks} />
               <h2 className="text-xl">Course chapters</h2>
@@ -131,7 +131,7 @@ export default async function CourseIdPage({
               <h2 className="text-xl">Resources & Attachments</h2>
             </div>
             <AttachmentForm initialData={course} courseId={course.id} />
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

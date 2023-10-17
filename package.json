@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.25.4",
+    "@hello-pangea/dnd": "^16.3.0",
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.4.2",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-slot": "^1.0.2",
     "@uploadthing/react": "^5.6.2",
     "axios": "^1.5.1",
