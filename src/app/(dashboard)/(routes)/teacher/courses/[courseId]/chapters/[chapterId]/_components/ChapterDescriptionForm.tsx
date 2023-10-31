@@ -8,7 +8,7 @@ import { Pencil } from 'lucide-react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { Course } from '@prisma/client'
+import { Chapter } from '@prisma/client'
 
 import {
   Form,
@@ -19,23 +19,24 @@ import {
 } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { Combobox } from '@/components/ui/combobox'
+import Editor from '@/components/Editor'
+import Preview from '@/components/Preview'
 
-interface CategoryFormProps {
-  initialData: Course
+interface ChapterDescriptionFormProps {
+  initialData: Chapter
   courseId: string
-  options: { label: string; value: string }[]
+  chapterId: string
 }
 
 const formSchema = z.object({
-  categoryId: z.string().min(1),
+  description: z.string().min(1),
 })
 
-export default function CategoryForm({
+export default function ChapterDescriptionForm({
   initialData,
   courseId,
-  options,
-}: CategoryFormProps) {
+  chapterId,
+}: ChapterDescriptionFormProps) {
   const [isEditing, setIsEditing] = useState(false)
 
   const toggleEdit = () => setIsEditing((current) => !current)
@@ -45,7 +46,7 @@ export default function CategoryForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      categoryId: initialData?.categoryId || '',
+      description: initialData?.description || '',
     },
   })
 
@@ -53,8 +54,11 @@ export default function CategoryForm({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}`, values)
-      toast.success('Course updated')
+      await axios.patch(
+        `/api/courses/${courseId}/chapters/${chapterId}`,
+        values
+      )
+      toast.success('Chapter updated')
       toggleEdit()
       router.refresh()
     } catch {
@@ -62,34 +66,33 @@ export default function CategoryForm({
     }
   }
 
-  const selectedOption = options.find(
-    (option) => option.value === initialData.categoryId
-  )
-
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course category
+        Chapter description
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit category
+              Edit description
             </>
           )}
         </Button>
       </div>
       {!isEditing && (
-        <p
+        <div
           className={cn(
             'text-sm mt-2',
-            !initialData.categoryId && 'text-slate-500 italic'
+            !initialData.description && 'text-slate-500 italic'
           )}
         >
-          {selectedOption?.label || 'No category'}
-        </p>
+          {!initialData.description && 'No description'}
+          {initialData.description && (
+            <Preview value={initialData.description} />
+          )}
+        </div>
       )}
       {isEditing && (
         <Form {...form}>
@@ -99,11 +102,11 @@ export default function CategoryForm({
           >
             <FormField
               control={form.control}
-              name="categoryId"
+              name="description"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Combobox options={...options} {...field} />
+                    <Editor {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
