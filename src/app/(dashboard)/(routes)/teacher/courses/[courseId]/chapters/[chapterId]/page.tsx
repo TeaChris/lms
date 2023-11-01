@@ -50,12 +50,12 @@ export default async function ChapterIPage({
 
   return (
     <>
-      {/* {!chapter.isPublished && (
+      {!chapter.isPublished && (
         <Banner
           variant="warning"
           label="This chapter is unpublished. It will not be visible in the course"
         />
-      )} */}
+      )}
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="w-full">
@@ -73,12 +73,12 @@ export default async function ChapterIPage({
                   Complete all fields {completionText}
                 </span>
               </div>
-              {/* <ChapterActions
+              <ChapterActions
                 disabled={!isComplete}
                 courseId={params.courseId}
                 chapterId={params.chapterId}
                 isPublished={chapter.isPublished}
-              /> */}
+              />
             </div>
           </div>
         </div>
