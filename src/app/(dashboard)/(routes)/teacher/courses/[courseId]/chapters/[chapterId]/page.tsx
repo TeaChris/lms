@@ -10,9 +10,9 @@ import Banner from '@/components/Banner'
 import ChapterTitleForm from './_components/ChapterTitleForm'
 import ChapterDescriptionForm from './_components/ChapterDescriptionForm'
 import ChapterAccessForm from './_components/ChapterAccessForm'
-import ChapterVideoForm from './_components/ChapterVideoForm'
 import ChapterActions from './_components/ChapterActions'
 import { IconBadge } from '@/components/IconBadge'
+import { ChapterVideoForm } from './_components/ChapterVideoForm'
 
 export default async function ChapterIPage({
   params,
@@ -117,11 +117,11 @@ export default async function ChapterIPage({
               <IconBadge icon={Video} />
               <h2 className="text-xl">Add a video</h2>
             </div>
-            {/* <ChapterVideoForm
+            <ChapterVideoForm
               initialData={chapter}
               chapterId={params.chapterId}
               courseId={params.courseId}
-            /> */}
+            />
           </div>
         </div>
       </div>
